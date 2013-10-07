@@ -1,0 +1,54 @@
+{
+  "name": "node2neo",
+  "description": "Neo4j transaction support for Node.js",
+  "version": "0.0.1",
+  "author": {
+    "name": "Rory Madden",
+    "email": "rorymadden@gmail.com"
+  },
+  "homepage": "http://rorymadden.github.com/node2neo",
+  "contributors": [
+    {
+      "name": "Rory Madden",
+      "email": "rorymadden@gmail.com"
+    }
+  ],
+  "private": false,
+  "main": "./lib",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -R spec -t 10000 -s 2000",
+    "quick-test": "USE_DIRTY_DATABASE=true NO_STOP=true ./node_modules/mocha/bin/mocha -R spec -t 3000 -s 2000"
+  },
+  "dependencies": {
+    "superagent": "0.12.x"
+  },
+  "devDependencies": {
+    "disposable-seraph": "~0.2.7",
+    "mocha": "~1.3.0",
+    "chai": "~1.8.0"
+  },
+  "engines": {
+    "node": ">= 0.8"
+  },
+  "keywords": [
+    "neo4j",
+    "graph",
+    "database",
+    "driver",
+    "rest",
+    "api",
+    "client"
+  ],
+  "bugs": {
+    "url": "http://github.com/rorymadden/node2neo/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/rorymadden/node2neo.git"
+  }
+}
