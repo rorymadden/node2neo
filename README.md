@@ -16,7 +16,7 @@ NOTE: Neo4j 2.0 is required.
 #### Connecting to the db
 
 ```js
-var db = require('node2neo')('http://localhost:7474');
+var db = require('node2neo').db('http://localhost:7474');
 ```
 
 There are only five methods offered by node2neo:
@@ -118,6 +118,27 @@ db.removeTransaction(commit, function(err){
 
 })
 ```
+
+
+#### Transaction Model
+There is also a transaction model which is provided. Transactions are EventEmitters and are useful for grouping multiple statements and emitting events once they have been processed. Transactions hold onto the transaction id and therefore can be passed to the statements which are added to the transaction.
+
+```js
+var Transaction = require('node2neo').transaction(db);
+
+Transaction.begin([statement], function(err, response){
+  User.create(userData, {transaction: Transaction}, function(err, user){
+    if(err) return callback(err);
+    User.createRelationshipTo(relationshipData, {transaction: Transaction}, function(err, relationship){
+      if(err) return callback(err);
+      return callback(err, {user: user, rel: relationship});
+    })
+  })
+})
+
+```
+
+[statement] is optional and can be a cypher string or an object with 'statement' and 'parameters' properties.
 
 ##Licence
 MIT

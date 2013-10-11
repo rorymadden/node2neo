@@ -1,14 +1,11 @@
 'use strict';
 
 var testDatabase = require('./util/database');
-var db = require('../')(testDatabase.url);
+var db = require('../').db(testDatabase.url);
 
 var should = require('chai').should();
 
-describe("transactions", function(){
-
-  before(testDatabase.refreshDb);
-  after(testDatabase.stopDb);
+describe("node2neo", function(){
 
   var commit, transaction, transId, ids = [];
 
