@@ -1,7 +1,7 @@
 {
   "name": "node2neo",
   "description": "Neo4j transaction support for Node.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": {
     "name": "Rory Madden",
     "email": "rorymadden@gmail.com"
@@ -20,8 +20,7 @@
     "quick-test": "USE_DIRTY_DATABASE=true NO_STOP=true ./node_modules/mocha/bin/mocha -R spec -t 3000 -s 2000"
   },
   "dependencies": {
-    "superagent": "0.12.x",
-    "q":"0.9.x"
+    "superagent": "0.12.x"
   },
   "devDependencies": {
     "disposable-seraph": "~0.2.7",
