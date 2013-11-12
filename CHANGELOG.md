@@ -1,3 +1,6 @@
+## 0.0.4 (3012-11-12)
+  - Added error handling for Connection Refused
+
 ## 0.0.3 (2013-10-11)
 
 Features:
