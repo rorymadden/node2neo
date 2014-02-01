@@ -17,10 +17,11 @@
   "main": "./lib",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha -R spec -t 10000 -s 2000",
+    "test-debug": "./node_modules/mocha/bin/mocha --debug-brk -R spec -t 10000 -s 2000",
     "quick-test": "USE_DIRTY_DATABASE=true NO_STOP=true ./node_modules/mocha/bin/mocha -R spec -t 3000 -s 2000"
   },
   "dependencies": {
-    "superagent": "0.12.x"
+    "request": "~2.33.0"
   },
   "devDependencies": {
     "disposable-seraph": "~0.2.7",

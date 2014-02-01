@@ -5,7 +5,7 @@ var _nsv;
 
 var refreshDb = function(done) {
   disposableSeraph({
-      version: '2.0.0-M05',
+      version: '2.0.0',
       edition: 'community',
       port: TEST_INSTANCE_PORT
     },
@@ -17,7 +17,7 @@ var refreshDb = function(done) {
 
 var stopDb = function(done) {
   _nsv.stop(done);
-}
+};
 
 module.exports = {
   port: TEST_INSTANCE_PORT,
