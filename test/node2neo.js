@@ -1,7 +1,7 @@
 'use strict';
 
 var testDatabase = require('./util/database');
-var db = require('../').db(testDatabase.url);
+var db = require('../')(testDatabase.url);
 
 var should = require('chai').should();
 
