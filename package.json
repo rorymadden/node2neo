@@ -21,7 +21,8 @@
     "quick-test": "USE_DIRTY_DATABASE=true NO_STOP=true ./node_modules/mocha/bin/mocha -R spec -t 3000 -s 2000"
   },
   "dependencies": {
-    "request": "~2.33.0"
+    "request": "~2.33.0",
+    "through": "~2.3.4"
   },
   "devDependencies": {
     "disposable-seraph": "~0.2.7",
