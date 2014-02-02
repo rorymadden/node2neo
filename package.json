@@ -1,7 +1,7 @@
 {
   "name": "node2neo",
   "description": "Neo4j transaction support for Node.js",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": {
     "name": "Rory Madden",
     "email": "rorymadden@gmail.com"
@@ -22,7 +22,8 @@
   },
   "dependencies": {
     "request": "~2.33.0",
-    "through": "~2.3.4"
+    "through": "~2.3.4",
+    "JSONStream": "~0.7.1"
   },
   "devDependencies": {
     "disposable-seraph": "~0.2.7",
