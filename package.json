@@ -1,7 +1,7 @@
 {
   "name": "node2neo",
   "description": "Neo4j transaction support for Node.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": {
     "name": "Rory Madden",
     "email": "rorymadden@gmail.com"
