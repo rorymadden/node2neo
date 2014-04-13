@@ -1,4 +1,4 @@
-var TEST_INSTANCE_PORT = parseInt(process.env.TEST_INSTANCE_PORT || '10507', 10);
+var TEST_INSTANCE_PORT = parseInt(process.env.TEST_INSTANCE_PORT || '10506', 10);
 var disposableSeraph = require('disposable-seraph');
 
 var _nsv;

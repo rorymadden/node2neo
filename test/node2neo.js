@@ -2,10 +2,14 @@
 
 var testDatabase = require('./util/database');
 var db = require('../')(testDatabase.url);
+var nock = require('nock')('http://localhost:' + testDatabase.port);
 
 var should = require('chai').should();
 
 describe('node2neo', function () {
+
+  before(testDatabase.refreshDb);
+  after(testDatabase.stopDb);
 
   var commit, transaction, transId, ids = [];
 
@@ -24,6 +28,7 @@ describe('node2neo', function () {
 
     var results = db.beginTransactionStream(statements);
     results.on('data', function (results) {
+      console.log(results.toString());
       transId = db.getTransactionId(results.commit);
       commit = results.commit;
       transaction = results.transaction;
@@ -52,12 +57,54 @@ describe('node2neo', function () {
 
   it('should error on invalid statement: pipe', function (done) {
     var results = db.beginTransactionStream('blue');
+      console.log(results.toString());
     results.on('error', function (error) {
-      error.length.should.equal(1);
-      error[0].code.should.equal('Neo.ClientError.Request.InvalidFormat');
+      error.code.should.equal('Neo.ClientError.Request.InvalidFormat');
       done();
     });
   });
+
+  // it('should error on database error', function (done) {
+
+  //   nock
+  //     .filteringRequestBody(function () {
+  //       return '*';
+  //     })
+  //     .post('/db/data/transaction', '*')
+  //     .reply(500, 'Oops');
+
+  //   db.beginTransactionStream('blue')
+  //     .on('error', function (error) {
+  //       error.code.should.equal('Neo.ClientError.Request.InvalidFormat');
+  //       done();
+  //     })
+  //     .on('data', function (data) {
+  //       console.log(data);
+  //     });
+  // });
+
+  // it('should create a stream query', function (done) {
+  //   var statements = {
+  //     statements: [{
+  //       statement: 'CREATE (n:User {name: \'Rory\' }) RETURN id(n)'
+  //     }]
+  //   };
+
+  //   var results = db.query(statements);
+  //   results.on('data', function (results) {
+  //     results.should.be.an.instanceof(Array);
+  //     var id = results[0].row[0];
+
+  //     // validate that the record has been created in the database
+  //     db.query({statements: [{statement: 'START n = node(' + id + ') RETURN n'}]})
+  //       .on('data', function (data) {
+  //         var node = data[0].row[0];
+
+  //         node.name.should.equal('Rory');
+  //       })
+  //       .on('end', done);
+  //   });
+  // });
 
   it('should create a transaction', function (done) {
     var statements = {

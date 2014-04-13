@@ -28,7 +28,8 @@
   "devDependencies": {
     "disposable-seraph": "~0.2.7",
     "mocha": "~1.3.0",
-    "chai": "~1.8.0"
+    "chai": "~1.8.0",
+    "nock": "~0.27.2"
   },
   "engines": {
     "node": ">= 0.8"
