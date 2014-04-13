@@ -2,7 +2,7 @@
 
 var testDatabase = require('./util/database');
 var db = require('../')(testDatabase.url);
-var nock = require('nock')('http://localhost:' + testDatabase.port);
+// var nock = require('nock')('http://localhost:' + testDatabase.port);
 
 var should = require('chai').should();
 
@@ -13,56 +13,56 @@ describe('node2neo', function () {
 
   var commit, transaction, transId, ids = [];
 
-  it('should create a transaction: pipe', function (done) {
-    var statements = {
-      statements: [{
-        statement: 'CREATE (n:User {name: \'Rory\' }) RETURN id(n)'
-      }]
-    };
+  // it('should create a transaction: pipe', function (done) {
+  //   var statements = {
+  //     statements: [{
+  //       statement: 'CREATE (n:User {name: \'Rory\' }) RETURN id(n)'
+  //     }]
+  //   };
 
-    //prepare for input
-    // var ws = Writable({ objectMode: true });
-    // ws._write = function (chuck, enc, next) {
+  //   //prepare for input
+  //   // var ws = Writable({ objectMode: true });
+  //   // ws._write = function (chuck, enc, next) {
 
-    // }
+  //   // }
 
-    var results = db.beginTransactionStream(statements);
-    results.on('data', function (results) {
-      console.log(results.toString());
-      transId = db.getTransactionId(results.commit);
-      commit = results.commit;
-      transaction = results.transaction;
-      should.exist(results.results);
-      should.exist(results.transaction);
-      results.errors.should.be.an('array');
-      results.errors.length.should.equal(0);
+  //   var results = db.beginTransactionStream(statements);
+  //   results.on('data', function (results) {
+  //     console.log(results.toString());
+  //     transId = db.getTransactionId(results.commit);
+  //     commit = results.commit;
+  //     transaction = results.transaction;
+  //     should.exist(results.results);
+  //     should.exist(results.transaction);
+  //     results.errors.should.be.an('array');
+  //     results.errors.length.should.equal(0);
 
-      results.results.length.should.equal(1);
-      results.results[0].columns.length.should.equal(1);
-      results.results[0].columns[0].should.equal('id(n)');
-      results.results[0].data.length.should.equal(1);
-      var id = results.results[0].data[0].row[0];
-      ids.push(id);
+  //     results.results.length.should.equal(1);
+  //     results.results[0].columns.length.should.equal(1);
+  //     results.results[0].columns[0].should.equal('id(n)');
+  //     results.results[0].data.length.should.equal(1);
+  //     var id = results.results[0].data[0].row[0];
+  //     ids.push(id);
 
-      // validate that the record hasn't been created in the database
-      db.beginTransaction({statements: [{statement: 'START n = node(' + id + ') RETURN n'}]}, {commit: true},
-        function (err, results) {
-        should.not.exist(err);
-        should.exist(results.results);
-        Object.keys(results.results[0].data[0].row[0]).length.should.equal(0);
-      });
-    });
-    results.on('end', done);
-  });
+  //     // validate that the record hasn't been created in the database
+  //     db.beginTransaction({statements: [{statement: 'START n = node(' + id + ') RETURN n'}]}, {commit: true},
+  //       function (err, results) {
+  //       should.not.exist(err);
+  //       should.exist(results.results);
+  //       Object.keys(results.results[0].data[0].row[0]).length.should.equal(0);
+  //     });
+  //   });
+  //   results.on('end', done);
+  // });
 
-  it('should error on invalid statement: pipe', function (done) {
-    var results = db.beginTransactionStream('blue');
-      console.log(results.toString());
-    results.on('error', function (error) {
-      error.code.should.equal('Neo.ClientError.Request.InvalidFormat');
-      done();
-    });
-  });
+  // it('should error on invalid statement: pipe', function (done) {
+  //   var results = db.beginTransactionStream('blue');
+  //     console.log(results);
+  //   results.on('error', function (error) {
+  //     error.code.should.equal('Neo.ClientError.Request.InvalidFormat');
+  //     done();
+  //   });
+  // });
 
   // it('should error on database error', function (done) {
 
@@ -135,6 +135,24 @@ describe('node2neo', function () {
         should.not.exist(err);
         should.exist(results.results);
         Object.keys(results.results[0].data[0].row[0]).length.should.equal(0);
+        done();
+      });
+    });
+  });
+
+  it('should create a blank transaction', function (done) {
+    db.beginTransaction(function (err, results) {
+      should.not.exist(err);
+      should.exist(results.results);
+      should.exist(results.transaction);
+      results.errors.should.be.an('array');
+      results.errors.length.should.equal(0);
+      results.results.length.should.equal(0);
+
+      // validate that the record hasn't been created in the database
+      db.removeTransaction(db.getTransactionId(results.commit),
+        function (err) {
+        should.not.exist(err);
         done();
       });
     });

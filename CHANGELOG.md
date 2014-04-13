@@ -1,3 +1,6 @@
+## 0.0.7 (2014-04-13)
+ - Ability to create a blank transaction
+
 ## 0.0.6 (2014-02-02)
  - Fixed dependencies
 
