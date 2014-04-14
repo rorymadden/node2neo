@@ -1,15 +1,16 @@
 'use strict';
 
-var testDatabase = require('./util/database');
-var db = require('../')(testDatabase.url);
+// var testDatabase = require('./util/database');
+// var db = require('../')(testDatabase.url);
+var db = require('../')('http://localhost:7475');
 // var nock = require('nock')('http://localhost:' + testDatabase.port);
 
 var should = require('chai').should();
 
 describe('node2neo', function () {
 
-  before(testDatabase.refreshDb);
-  after(testDatabase.stopDb);
+  // before(testDatabase.refreshDb);
+  // after(testDatabase.stopDb);
 
   var commit, transaction, transId, ids = [];
 

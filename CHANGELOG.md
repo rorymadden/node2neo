@@ -1,3 +1,6 @@
+##0.0.8 (2014-04-14)
+ - Added console log on database connect
+
 ## 0.0.7 (2014-04-13)
  - Ability to create a blank transaction
 
